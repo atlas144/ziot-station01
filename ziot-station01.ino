@@ -3,12 +3,13 @@
 #include <PubSubClient.h>
 #include <SSD1306Wire.h>
 #include <DHT.h>
+#include "img.h"
 #include "font.h"
 
 // SETUP
 // Wi-Fi
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "Wifi-Svarc";
+const char* password = "xp3x275x";
 // MQTT
 const char* broker = "192.168.0.10";
 const int port = 1883;
@@ -17,7 +18,6 @@ const String stationType = "station01";
 
 // Support variables
 String topic = stationType + "/" + stationID;
-boolean lastConnected = false;
 int saveCounter = 1;
 char* save;
 
@@ -40,24 +40,19 @@ DHT dhtin(DHTinPIN, DHTinTYPE);
 DHT dhtout(DHToutPIN, DHToutTYPE);
 
 // OLED
-SSD1306Wire  display(0x3c, D6, D5);
+SSD1306Wire  display(0x3c, D7, D6);
 
 // Interruption
-const byte interruptPin = 0;
+const byte interruptPin = 14;
 volatile byte interruptCounter = 0;
 
 boolean brokerConnect() {
   if (client.connect((char*) stationID.c_str())) {
       Serial.println("MQTT - OK");
       client.loop();
-      if (!lastConnected) {
-        Serial.println(client.publish((char*) (topic + "/connect").c_str(), "Connected"));
-      } 
-      lastConnected = true;
       return true;
     } else {
       Serial.println("MQTT - Failed");
-      lastConnected = false;
       return false;
   }
 }
@@ -109,7 +104,9 @@ void setup() {
   display.init();
   display.flipScreenVertically();
   display.setTextAlignment(TEXT_ALIGN_LEFT);
-  display.displayOff();
+  display.displayOn();
+  display.drawXbm(0, 3, ziot_width, ziot_height, ziot_bits);
+  display.display();
   Serial.println("OLED - OK");
   // Set up OLED display ON/OFF feature
   pinMode(interruptPin, INPUT_PULLUP);
