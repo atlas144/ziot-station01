@@ -44,7 +44,7 @@ SSD1306Wire  display(0x3c, D7, D6);
 
 // Interruption
 const byte interruptPin = 14;
-volatile byte interruptCounter = 0;
+volatile byte interruptCounter = 1;
 
 boolean brokerConnect() {
   if (client.connect((char*) stationID.c_str())) {
