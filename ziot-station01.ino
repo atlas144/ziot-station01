@@ -8,8 +8,8 @@
 
 // SETUP
 // Wi-Fi
-const char* ssid = "Wifi-Svarc";
-const char* password = "xp3x275x";
+const char* ssid = "";
+const char* password = "";
 // MQTT
 const char* broker = "192.168.0.10";
 const int port = 1883;
