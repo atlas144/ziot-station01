@@ -124,9 +124,9 @@ void loop() {
     delay(3000);
   }
   if (WiFi.status() == WL_CONNECTED && brokerConnect()) {
-    displayValues("Doma", tempIn, humIn);
+    displayValues("Uvnitř", tempIn, humIn);
   } else {
-    displayValues("Doma                   OFF", tempIn, humIn);
+    displayValues("Uvnitř                 OFF", tempIn, humIn);
   }
   float tempOut = 0.0;
   float humOut = 0.0;
